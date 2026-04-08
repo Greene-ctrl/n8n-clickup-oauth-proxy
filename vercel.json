@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/rest/oauth2-credential/callback",
-      "destination": "https://leon4gr45-n8n.hf.space/rest/oauth2-credential/callback"
+      "source": "/(.*)",
+      "destination": "https://leon4gr45-n8n.hf.space"
     }
   ],
   "headers": [
