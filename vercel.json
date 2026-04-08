@@ -23,12 +23,5 @@
         }
       ]
     }
-  ],
-  "redirects": [
-    {
-      "source": "/test",
-      "destination": "https://leon4gr45-n8n.hf.space/rest/oauth2-credential/callback?test=true",
-      "permanent": false
-    }
   ]
 }
