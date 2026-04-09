@@ -16,9 +16,10 @@
     console.log('Code:', code);
     console.log('State:', state);
     
-    // Redirect to n8n with the same query parameters
+    // Redirect to n8n base URL - n8n handles the OAuth callback internally
+    // n8n expects: https://domain/rest/oauth2-credential/callback?code=...&state=...
     const queryString = window.location.search;
-    window.location.href = 'https://leon4gr45-n8n.hf.space/rest/oauth2-credential/callback' + queryString;
+    window.location.href = 'https://leon4gr45-n8n.hf.space' + queryString;
   </script>
 </head>
 <body>
