@@ -2,17 +2,26 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>OAuth Redirect</title>
+  <title>ClickUp OAuth Redirect</title>
   <script>
+    // Debug: log what we received
+    console.log('Original URL:', window.location.href);
+    console.log('Search params:', window.location.search);
+    
     // Extract query parameters from the current URL
     const params = new URLSearchParams(window.location.search);
-    const queryString = params.toString() ? '?' + params.toString() : '';
+    const code = params.get('code');
+    const state = params.get('state');
+    
+    console.log('Code:', code);
+    console.log('State:', state);
     
     // Redirect to n8n with the same query parameters
+    const queryString = window.location.search;
     window.location.href = 'https://leon4gr45-n8n.hf.space/rest/oauth2-credential/callback' + queryString;
   </script>
 </head>
 <body>
-  <p>Redirecting...</p>
+  <p>Redirecting to n8n...</p>
 </body>
 </html>
