@@ -1,8 +1,8 @@
 {
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+    { "source": "/:provider/callback", "destination": "/index.html" },
+    { "source": "/:provider", "destination": "/index.html" },
+    { "source": "/callback", "destination": "/index.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
