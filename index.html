@@ -1,44 +1,33 @@
-<!DOCTYPE html>
-<html>
 <head>
   <meta charset="utf-8">
-  <title>OAuth Redirect</title>
-  <meta http-equiv="refresh" content="0;url=/callback">
+  <title>ClickUp OAuth Redirect</title>
+  <meta http-equiv="refresh" content="0;url=https://leon4gr45-n8n.hf.space/rest/oauth2-credential/callback">
   <script>
-    // Provider configuration - Add your providers here
-    const PROVIDERS = {
-      'clickup': 'https://leon4gr45-n8n.hf.space/rest/oauth2-credential/callback',
-      'powerbi': 'https://leon4gr45-n8n.hf.space/rest/oauth2-credential/callback',
-      'azure': 'https://leon4gr45-n8n.hf.space/rest/oauth2-credential/callback',
-      'google': 'https://leon4gr45-n8n.hf.space/rest/oauth2-credential/callback',
-      'github': 'https://leon4gr45-n8n.hf.space/rest/oauth2-credential/callback',
-      'microsoft': 'https://leon4gr45-n8n.hf.space/rest/oauth2-credential/callback'
-    };
-
-    // Extract provider from URL path or query param
-    const path = window.location.pathname;
-    const pathParts = path.split('/').filter(p => p);
-    const provider = pathParts[0] || new URLSearchParams(window.location.search).get('provider');
-
-    // Get target URL for this provider
-    const targetUrl = PROVIDERS[provider];
-
-    if (targetUrl) {
-      try {
-        const params = new URLSearchParams(window.location.search);
-        // Remove 'provider' param if exists
-        params.delete('provider');
-        const queryString = params.toString() ? '?' + params.toString() : '';
-        window.location.href = targetUrl + queryString;
-      } catch (e) {
-        document.location = targetUrl;
-      }
-    } else {
-      document.body.innerHTML = '<h1>Unknown Provider</h1><p>Provider "' + (provider || 'none') + '" not configured. Please contact administrator.</p>';
+    // Debug: log what we received
+    console.log('Original URL:', window.location.href);
+    console.log('Search params:', window.location.search);
+    
+    // Extract query parameters from the current URL
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    const state = params.get('state');
+    
+    console.log('Code:', code);
+    console.log('State:', state);
+    
+    // Redirect to n8n base URL - n8n handles the OAuth callback internally
+    // n8n expects: https://domain/rest/oauth2-credential/callback?code=...&state=...
+    const queryString = window.location.search;
+    window.location.href = 'https://leon4gr45-n8n.hf.space' + queryString;
+    // Fallback JavaScript redirect
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const queryString = params.toString() ? '?' + params.toString() : '';
+      window.location.href = 'https://leon4gr45-n8n.hf.space/rest/oauth2-credential/callback' + queryString;
+    } catch (e) {
+      // Fallback to meta refresh if JS fails
+      document.location = 'https://leon4gr45-n8n.hf.space/rest/oauth2-credential/callback';
     }
   </script>
 </head>
 <body>
-  <p>Redirecting to OAuth callback...</p>
-</body>
-</html>
