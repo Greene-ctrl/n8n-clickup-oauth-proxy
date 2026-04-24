@@ -1,7 +1,7 @@
 <head>
   <meta charset="utf-8">
-  <title>ClickUp OAuth Redirect</title>
-  <meta http-equiv="refresh" content="0;url=https://leon4gr45-n8n.hf.space/rest/oauth2-credential/callback">
+  <title>n8n OAuth Redirect</title>
+  <meta http-equiv="refresh" content="0;url=https://44b2-2003-cb-7728-700e-11d1-d90b-137d-eb5e.ngrok-free.app/rest/oauth2-credential/callback">
   <script>
     // Debug: log what we received
     console.log('Original URL:', window.location.href);
@@ -15,19 +15,22 @@
     console.log('Code:', code);
     console.log('State:', state);
     
-    // Redirect to n8n base URL - n8n handles the OAuth callback internally
-    // n8n expects: https://domain/rest/oauth2-credential/callback?code=...&state=...
+    // Redirect to local n8n instance
+    // n8n expects: https://44b2-2003-cb-7728-700e-11d1-d90b-137d-eb5e.ngrok-free.app/rest/oauth2-credential/callback?code=...&state=...
     const queryString = window.location.search;
-    window.location.href = 'https://leon4gr45-n8n.hf.space' + queryString;
+    window.location.href = 'https://44b2-2003-cb-7728-700e-11d1-d90b-137d-eb5e.ngrok-free.app' + queryString;
+    
     // Fallback JavaScript redirect
     try {
       const params = new URLSearchParams(window.location.search);
       const queryString = params.toString() ? '?' + params.toString() : '';
-      window.location.href = 'https://leon4gr45-n8n.hf.space/rest/oauth2-credential/callback' + queryString;
+      window.location.href = 'https://44b2-2003-cb-7728-700e-11d1-d90b-137d-eb5e.ngrok-free.app/rest/oauth2-credential/callback' + queryString;
     } catch (e) {
       // Fallback to meta refresh if JS fails
-      document.location = 'https://leon4gr45-n8n.hf.space/rest/oauth2-credential/callback';
+      document.location = 'https://44b2-2003-cb-7728-700e-11d1-d90b-137d-eb5e.ngrok-free.app/rest/oauth2-credential/callback';
     }
   </script>
 </head>
 <body>
+  <p>Redirecting to n8n...</p>
+</body>
