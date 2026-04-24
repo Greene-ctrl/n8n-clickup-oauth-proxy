@@ -1,27 +1,33 @@
 <head>
   <meta charset="utf-8">
-  <title>n8n OAuth Redirect</title>
+  <title>n8n Proxy Redirect</title>
   <script>
     // Debug: log what we received
     console.log('Original URL:', window.location.href);
-    console.log('Search params:', window.location.search);
-    
-    // Extract query parameters from the current URL
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get('code');
-    const state = params.get('state');
-    
-    console.log('Code:', code);
-    console.log('State:', state);
+    console.log('Path:', window.location.pathname);
     
     // Target n8n instance (Localhost for current setup)
     const N8N_TARGET = 'http://localhost:5678';
     
-    // Redirect to local n8n instance
+    // Determine the target path
+    const path = window.location.pathname;
     const queryString = window.location.search;
-    const finalUrl = N8N_TARGET + '/rest/oauth2-credential/callback' + queryString;
+    
+    let targetPath = '/rest/oauth2-credential/callback'; // Default for OAuth
+    
+    // Check if it's a webhook
+    if (path.startsWith('/webhook/') || path.startsWith('/webhook-test/')) {
+      targetPath = path;
+      console.log('Detected Webhook path');
+    } else {
+      console.log('Defaulting to OAuth callback path');
+    }
+    
+    const finalUrl = N8N_TARGET + targetPath + queryString;
     
     console.log('Redirecting to:', finalUrl);
+    
+    // Perform redirect
     window.location.href = finalUrl;
     
     // Fallback JavaScript redirect
@@ -31,9 +37,16 @@
   </script>
 </head>
 <body>
-  <p>Redirecting to n8n at http://localhost:5678...</p>
+  <p>Redirecting to n8n instance...</p>
+  <p>Target: <span id="display-url">...</span></p>
   <p>If you are not redirected automatically, <a id="manual-link" href="#">click here</a>.</p>
   <script>
-    document.getElementById('manual-link').href = 'http://localhost:5678/rest/oauth2-credential/callback' + window.location.search;
+    const path = window.location.pathname;
+    const queryString = window.location.search;
+    let targetPath = (path.startsWith('/webhook/') || path.startsWith('/webhook-test/')) ? path : '/rest/oauth2-credential/callback';
+    const finalUrl = 'http://localhost:5678' + targetPath + queryString;
+    
+    document.getElementById('display-url').textContent = finalUrl;
+    document.getElementById('manual-link').href = finalUrl;
   </script>
 </body>
