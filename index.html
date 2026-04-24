@@ -1,7 +1,6 @@
 <head>
   <meta charset="utf-8">
   <title>n8n OAuth Redirect</title>
-  <meta http-equiv="refresh" content="0;url=https://44b2-2003-cb-7728-700e-11d1-d90b-137d-eb5e.ngrok-free.app/rest/oauth2-credential/callback">
   <script>
     // Debug: log what we received
     console.log('Original URL:', window.location.href);
@@ -15,22 +14,26 @@
     console.log('Code:', code);
     console.log('State:', state);
     
+    // Target n8n instance (Localhost for current setup)
+    const N8N_TARGET = 'http://localhost:5678';
+    
     // Redirect to local n8n instance
-    // n8n expects: https://44b2-2003-cb-7728-700e-11d1-d90b-137d-eb5e.ngrok-free.app/rest/oauth2-credential/callback?code=...&state=...
     const queryString = window.location.search;
-    window.location.href = 'https://44b2-2003-cb-7728-700e-11d1-d90b-137d-eb5e.ngrok-free.app' + queryString;
+    const finalUrl = N8N_TARGET + '/rest/oauth2-credential/callback' + queryString;
+    
+    console.log('Redirecting to:', finalUrl);
+    window.location.href = finalUrl;
     
     // Fallback JavaScript redirect
-    try {
-      const params = new URLSearchParams(window.location.search);
-      const queryString = params.toString() ? '?' + params.toString() : '';
-      window.location.href = 'https://44b2-2003-cb-7728-700e-11d1-d90b-137d-eb5e.ngrok-free.app/rest/oauth2-credential/callback' + queryString;
-    } catch (e) {
-      // Fallback to meta refresh if JS fails
-      document.location = 'https://44b2-2003-cb-7728-700e-11d1-d90b-137d-eb5e.ngrok-free.app/rest/oauth2-credential/callback';
-    }
+    setTimeout(() => {
+      window.location.href = finalUrl;
+    }, 1000);
   </script>
 </head>
 <body>
-  <p>Redirecting to n8n...</p>
+  <p>Redirecting to n8n at http://localhost:5678...</p>
+  <p>If you are not redirected automatically, <a id="manual-link" href="#">click here</a>.</p>
+  <script>
+    document.getElementById('manual-link').href = 'http://localhost:5678/rest/oauth2-credential/callback' + window.location.search;
+  </script>
 </body>
