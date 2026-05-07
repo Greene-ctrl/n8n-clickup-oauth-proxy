@@ -7,7 +7,7 @@
     console.log('Path:', window.location.pathname);
     
     // Target n8n instance (Localhost for current setup)
-    const N8N_TARGET = 'http://localhost:5678';
+    const N8N_TARGET = 'https://leon4gr45-n8n.hf.space';
     
     // Determine the target path
     const path = window.location.pathname;
@@ -23,7 +23,7 @@
       console.log('Defaulting to OAuth callback path');
     }
     
-    const finalUrl = N8N_TARGET + targetPath + queryString;
+    const finalUrl = 'https://leon4gr45-n8n.hf.space' + targetPath + queryString;
     
     console.log('Redirecting to:', finalUrl);
     
