@@ -4,6 +4,29 @@
 
 - n8n installed globally (`npm install -g n8n`)
 - Proxy deployed to Vercel at `https://n8n-clickup-oauth-proxy.vercel.app`
+- **GitHub Classic PAT** with `repo` scope (see below)
+
+## GitHub PAT Requirements
+
+The `start.sh` script needs a GitHub Personal Access Token to push commits automatically.
+
+**Required token type:** **Classic** PAT (not fine-grained)
+
+**Required scope:** `repo` (Full control of private repositories)
+
+**How to create:**
+
+1. Go to https://github.com/settings/tokens
+2. Click **Generate new token (classic)**
+3. Select the `repo` checkbox (Full control of private repositories)
+4. Generate and copy the token (starts with `ghp_`)
+5. Save it to `C:\Users\LeonGründling\n8n-clickup-oauth-proxy\.env`:
+
+```
+GITHUB_PAT=ghp_your_token_here
+```
+
+**Note:** Fine-grained tokens (`github_pat_...`) will NOT work — use a classic token.
 
 ## Steps
 
