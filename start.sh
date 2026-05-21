@@ -69,7 +69,7 @@ git remote set-url origin "https://github.com/Greene-ctrl/n8n-clickup-oauth-prox
 
 # Use GIT_ASKPASS to supply PAT non-interactively
 ASKPASS_SCRIPT=$(mktemp)
-cat > "$ASKPASS_SCRIPT" << 'ASKEOF'
+cat > "$ASKPASS_SCRIPT" << ASKEOF
 #!/bin/sh
 echo "$GITHUB_PAT"
 ASKEOF

@@ -21,6 +21,8 @@ This starts localtunnel, captures the URL, updates all config files, commits, an
 bash /c/Users/LeonGründling/n8n-clickup-oauth-proxy/start.sh
 ```
 
+**Note:** Make sure you're in **Git Bash** (not PowerShell) to run this script.
+
 ### 3. Restart n8n
 
 Stop n8n (Ctrl+C) and start it again so it picks up the new `WEBHOOK_URL`:
