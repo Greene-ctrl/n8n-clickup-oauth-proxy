@@ -17,7 +17,7 @@ if [ -z "$GITHUB_PAT" ]; then
   exit 1
 fi
 
-REMOTE="https://github.com/Greene-ctrl/n8n-clickup-oauth-proxy.git"
+REMOTE="https://git:${GITHUB_PAT}@github.com/Greene-ctrl/n8n-clickup-oauth-proxy.git"
 
 cd "$REPO_DIR"
 
@@ -62,33 +62,11 @@ fi
 
 echo "Updated config files with URL: $URL"
 
-# Commit and push to GitHub using PAT
+# Commit and push to GitHub using PAT in URL
 git add -A
 git commit -m "update tunnel URL to $URL"
-
-# Use GIT_ASKPASS to supply credentials non-interactively
-ASKPASS_SCRIPT=$(mktemp)
-cat > "$ASKPASS_SCRIPT" << ASKEOF
-#!/bin/sh
-# Return username on first call, PAT on second call
-if [ -z "\$GIT_ASKPASS_USERNAME_SET" ]; then
-  echo "git"
-  export GIT_ASKPASS_USERNAME_SET=1
-else
-  echo "$GITHUB_PAT"
-fi
-ASKEOF
-chmod +x "$ASKPASS_SCRIPT"
-
-# Debug
-echo "DEBUG: GITHUB_PAT starts with: \${GITHUB_PAT:0:10}..."
-echo "DEBUG: ASKPASS_SCRIPT at: $ASKPASS_SCRIPT"
-cat "$ASKPASS_SCRIPT"
-
-# Push with PAT in URL (simpler, worked in manual test)
-git remote set-url origin "https://git:${GITHUB_PAT}@github.com/Greene-ctrl/n8n-clickup-oauth-proxy.git"
+git remote set-url origin "$REMOTE"
 git push origin main 2>&1
-rm -f "$ASKPASS_SCRIPT"
 
 echo ""
 echo "=== Done ==="
