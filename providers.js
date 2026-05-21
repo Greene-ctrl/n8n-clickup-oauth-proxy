@@ -4,37 +4,37 @@
 export const PROVIDERS = {
   clickup: {
     name: 'ClickUp',
-    callbackUrl: 'https://stale-terms-nail.loca.lt/rest/oauth2-credential/callback',
+    callbackUrl: 'https://real-singers-add.loca.lt/rest/oauth2-credential/callback',
     description: 'ClickUp task management integration',
     path: '/clickup/callback'
   },
   powerbi: {
     name: 'Power BI',
-    callbackUrl: 'https://stale-terms-nail.loca.lt/rest/oauth2-credential/callback',
+    callbackUrl: 'https://real-singers-add.loca.lt/rest/oauth2-credential/callback',
     description: 'Microsoft Power BI analytics integration',
     path: '/powerbi/callback'
   },
   azure: {
     name: 'Azure AD',
-    callbackUrl: 'https://stale-terms-nail.loca.lt/rest/oauth2-credential/callback',
+    callbackUrl: 'https://real-singers-add.loca.lt/rest/oauth2-credential/callback',
     description: 'Microsoft Azure Active Directory',
     path: '/azure/callback'
   },
   google: {
     name: 'Google',
-    callbackUrl: 'https://stale-terms-nail.loca.lt/rest/oauth2-credential/callback',
+    callbackUrl: 'https://real-singers-add.loca.lt/rest/oauth2-credential/callback',
     description: 'Google Workspace integration',
     path: '/google/callback'
   },
   github: {
     name: 'GitHub',
-    callbackUrl: 'https://stale-terms-nail.loca.lt/rest/oauth2-credential/callback',
+    callbackUrl: 'https://real-singers-add.loca.lt/rest/oauth2-credential/callback',
     description: 'GitHub repository integration',
     path: '/github/callback'
   },
   microsoft: {
     name: 'Microsoft',
-    callbackUrl: 'https://stale-terms-nail.loca.lt/rest/oauth2-credential/callback',
+    callbackUrl: 'https://real-singers-add.loca.lt/rest/oauth2-credential/callback',
     description: 'Microsoft 365 integration',
     path: '/microsoft/callback'
   }
