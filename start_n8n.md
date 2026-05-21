@@ -36,15 +36,18 @@ GITHUB_PAT=ghp_your_token_here
 n8n start
 ```
 
-### 2. Run the full setup script (Terminal 2 — Git Bash)
+### 2. Run the auto-restart tunnel script (Terminal 2 — Git Bash)
 
-This starts localtunnel, captures the URL, updates all config files, commits, and pushes to GitHub:
+This starts localtunnel, captures the URL, updates all config files, commits, pushes to GitHub, and **auto-restarts** if the tunnel dies:
 
 ```bash
 bash /c/Users/LeonGründling/n8n-clickup-oauth-proxy/start.sh
 ```
 
-**Note:** Make sure you're in **Git Bash** (not PowerShell) to run this script.
+**Note:** 
+- Make sure you're in **Git Bash** (not PowerShell) to run this script.
+- The tunnel will keep running and auto-restart if it drops.
+- Press Ctrl+C to stop the tunnel.
 
 ### 3. Restart n8n
 
