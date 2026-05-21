@@ -17,7 +17,7 @@ if [ -z "$GITHUB_PAT" ]; then
   exit 1
 fi
 
-REMOTE="https://git:${GITHUB_PAT}@github.com/Greene-ctrl/n8n-clickup-oauth-proxy.git"
+REMOTE="https://github.com/Greene-ctrl/n8n-clickup-oauth-proxy.git"
 
 cd "$REPO_DIR"
 
@@ -65,15 +65,40 @@ echo "Updated config files with URL: $URL"
 # Commit and push to GitHub using PAT
 git add -A
 git commit -m "update tunnel URL to $URL"
-git remote set-url origin "https://github.com/Greene-ctrl/n8n-clickup-oauth-proxy.git"
 
-# Use GIT_ASKPASS to supply PAT non-interactively
+# Use GIT_ASKPASS to supply credentials non-interactively
 ASKPASS_SCRIPT=$(mktemp)
 cat > "$ASKPASS_SCRIPT" << ASKEOF
 #!/bin/sh
-echo "$GITHUB_PAT"
+# Git calls this script for both username and password prompts
+# The first call is for username, second is for password
+case "\$1" in
+  "Username for 'https://github.com'")
+    echo "git"
+    ;;
+  "Password for 'https://git@github.com'")
+    echo "$GITHUB_PAT"
+    ;;
+  *)
+    # Fallback: if asked for anything else, return empty
+    echo ""
+    ;;
+esac
 ASKEOF
 chmod +x "$ASKPASS_SCRIPT"
+
+# Debug: show what we're using (first 10 chars of PAT for security)
+echo "DEBUG: GITHUB_PAT starts with: \${GITHUB_PAT:0:10}..."
+echo "DEBUG: ASKPASS_SCRIPT at: $ASKPASS_SCRIPT"
+echo "DEBUG: ASKPASS content:"
+cat "$ASKPASS_SCRIPT"
+echo "DEBUG: Pushing to: origin main"
+
+# Test the PAT first with a dry-run fetch
+echo "DEBUG: Testing PAT with fetch..."
+GIT_ASKPASS="$ASKPASS_SCRIPT" git fetch origin 2>&1 || echo "DEBUG: Fetch failed!"
+
+# Actual push
 GIT_ASKPASS="$ASKPASS_SCRIPT" git push origin main 2>&1
 rm -f "$ASKPASS_SCRIPT"
 
